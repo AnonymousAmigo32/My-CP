@@ -2,12 +2,13 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.HashMap;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.io.InputStream;
 
 /**
@@ -22,39 +23,37 @@ public class Main {
 		OutputStream outputStream = System.out;
 		InputReader in = new InputReader(inputStream);
 		PrintWriter out = new PrintWriter(outputStream);
-		CHFM solver = new CHFM();
+		MajorityElement solver = new MajorityElement();
 		int testCount = Integer.parseInt(in.next());
 		for (int i = 1; i <= testCount; i++)
 			solver.solve(i, in, out);
 		out.close();
 	}
 
-	static class CHFM {
+	static class MajorityElement {
 		public void solve(int testNumber, InputReader in, PrintWriter out) {
 			int size = in.nextInt();
-			List<Integer> array = new ArrayList<>();
-			long sum = 0;
-			for (int i = 0; i < size; i++) {
-				int value = in.nextInt();
-				array.add(value);
-				sum += value;
-			}
-			double mean = sum / (double) size;
-			if (Math.ceil(mean) == mean) {
-				boolean found = false;
-				for (int i = 0; i < size; i++) {
-					if (array.get(i) == (long) mean) {
-						out.println(i + 1);
-						found = true;
-						break;
-					}
+			Map<Integer, Integer> map = new HashMap<>();
+			for (int j = 0; j < size; j++) {
+				int val = in.nextInt();
+				if (map.containsKey(val)) {
+					map.put(val, map.get(val) + 1);
+				} else {
+					map.put(val, 1);
 				}
-				if (!found) {
-					out.println("Impossible");
-				}
-			} else {
-				out.println("Impossible");
 			}
+			boolean printed = false;
+			for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+				if (entry.getValue() > size / 2) {
+					out.println(entry.getKey());
+					printed = true;
+					break;
+				}
+			}
+			if (!printed) {
+				out.println(-1);
+			}
+
 		}
 
 	}
