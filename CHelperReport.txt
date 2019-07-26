@@ -1,2 +1,2 @@
-27 src/gfg/LeadersInArray.json
+29 src/gfg/EquilibriumPoint.json
 0
