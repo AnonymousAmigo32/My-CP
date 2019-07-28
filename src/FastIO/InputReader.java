@@ -75,12 +75,15 @@ public class InputReader {
     public boolean hasNext(){
         try {
             if (!reader.ready()) {
+                if (tokenizer == null || !tokenizer.hasMoreTokens()) {
+                    tokenizer = new StringTokenizer(reader.readLine());
+                }
                 if (tokenizer != null && tokenizer.hasMoreTokens())
                     return true;
                 return false;
             }
         }catch (Exception e){
-            throw new RuntimeException(e);
+            return false;
         }
         return true;
     }

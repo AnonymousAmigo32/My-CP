@@ -1,6 +1,6 @@
 {
   "name" : "COINS",
-  "testType" : "SINGLE",
+  "testType" : "MULTI_EOF",
   "input" : {
     "type" : "STANDARD",
     "fileName" : "input.txt"
@@ -10,8 +10,8 @@
     "fileName" : "output.txt"
   },
   "tests" : [ {
-    "input" : "12\n2\n100",
-    "output" : "13\n2\n120",
+    "input" : "12\n2\n",
+    "output" : "13\n2",
     "index" : 0,
     "active" : true
   } ],
@@ -22,10 +22,10 @@
   "checkerClass" : "net.egork.chelper.checkers.TokenChecker",
   "checkerParameters" : "",
   "testClasses" : [ ],
-  "date" : "2018.08.08",
+  "date" : "2019.07.28",
   "contestName" : "",
   "truncate" : true,
-  "inputClass" : "java.util.Scanner",
+  "inputClass" : "FastIO.InputReader",
   "outputClass" : "java.io.PrintWriter",
   "includeLocale" : false,
   "failOnOverflow" : false,
