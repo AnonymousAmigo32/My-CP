@@ -20,33 +20,41 @@ public class Main {
 		OutputStream outputStream = System.out;
 		InputReader in = new InputReader(inputStream);
 		PrintWriter out = new PrintWriter(outputStream);
-		EquilibriumPoint solver = new EquilibriumPoint();
-		int testCount = Integer.parseInt(in.next());
-		for (int i = 1; i <= testCount; i++)
-			solver.solve(i, in, out);
-		out.close();
+		CANDY solver = new CANDY();
+		try {
+			int testNumber = 1;
+			while (true)
+				solver.solve(testNumber++, in, out);
+		} catch (UnknownError e) {
+			out.close();
+		}
 	}
 
-	static class EquilibriumPoint {
+	static class CANDY {
 		public void solve(int testNumber, InputReader in, PrintWriter out) {
 			int size = in.nextInt();
+			if (size == -1) {
+				throw new UnknownError();
+			}
 			int[] arr = new int[size];
-			long sum = 0;
+			int sum = 0;
 			for (int i = 0; i < size; i++) {
-				int var = in.nextInt();
-				arr[i] = var;
-				sum += var;
+				arr[i] = in.nextInt();
+				sum += arr[i];
 			}
-			int pos = -1;
-			long left = 0;
+			double avg = sum / (double) size;
+			if (avg != Math.floor(avg)) {
+				out.println(-1);
+				return;
+			}
+			int avgI = (int) avg;
+			int ans = 0;
 			for (int i = 0; i < size; i++) {
-				sum -= arr[i];
-				if (left == sum) {
-					pos = i + 1;
+				if (arr[i] < avgI) {
+					ans += avgI - arr[i];
 				}
-				left += arr[i];
 			}
-			out.println(pos);
+			out.println(ans);
 		}
 
 	}

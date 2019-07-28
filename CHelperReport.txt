@@ -1,2 +1,2 @@
-29 src/gfg/EquilibriumPoint.json
+19 src/SPOJ/CANDY.json
 0
