@@ -20,42 +20,43 @@ public class Main {
 		OutputStream outputStream = System.out;
 		InputReader in = new InputReader(inputStream);
 		PrintWriter out = new PrintWriter(outputStream);
-		PCOINS solver = new PCOINS();
-		solver.solve(1, in, out);
-		out.close();
+		TOANDFRO solver = new TOANDFRO();
+		try {
+			int testNumber = 1;
+			while (true)
+				solver.solve(testNumber++, in, out);
+		} catch (UnknownError e) {
+			out.close();
+		}
 	}
 
-	static class PCOINS {
-		private final static int SIZE = 1000000;
-		int[] arr = new int[SIZE];
-
+	static class TOANDFRO {
 		public void solve(int testNumber, InputReader in, PrintWriter out) {
-			calc();
-			while (in.hasNext()) {
-				long val = in.nextLong();
-				out.println(res(val));
+			int size = in.nextInt();
+			if (size == 0) {
+				throw new UnknownError();
 			}
-		}
-
-		private void calc() {
-			for (int i = 1; i < SIZE; i++) {
-				arr[i] = Math.max(arr[i / 2] + arr[i / 3] + arr[i / 4], i);
+			StringBuilder string = new StringBuilder(in.next()).reverse();
+			StringBuilder[] matrix = new StringBuilder[string.length() / size];
+//        for (int i=0;i<size;i++)matrix[i] = new StringBuilder();
+			boolean evenRow = true;
+			int arrI = 0;
+			while (string.length() > 0) {
+				StringBuilder line = new StringBuilder(string.substring(string.length() - size));
+				string = string.delete(string.length() - size, string.length());
+				if (evenRow) {
+					matrix[arrI++] = line.reverse();
+				} else {
+					matrix[arrI++] = line;
+				}
+				evenRow = !evenRow;
 			}
-		}
-
-		private long calc(long val) {
-			if (val >= SIZE) {
-				return Math.max(calc(val / 2) + calc(val / 3) + calc(val / 4), val);
-			} else {
-				return arr[(int) val];
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < matrix.length; j++) {
+					out.print(matrix[j].charAt(i));
+				}
 			}
-		}
-
-		private long res(long val) {
-			if (val >= SIZE) {
-				return calc(val);
-			}
-			return arr[(int) val];
+			out.println();
 		}
 
 	}
@@ -80,24 +81,8 @@ public class Main {
 			return tokenizer.nextToken();
 		}
 
-		public long nextLong() {
-			return Long.parseLong(next());
-		}
-
-		public boolean hasNext() {
-			try {
-				if (!reader.ready()) {
-					if (tokenizer == null || !tokenizer.hasMoreTokens()) {
-						tokenizer = new StringTokenizer(reader.readLine());
-					}
-					if (tokenizer != null && tokenizer.hasMoreTokens())
-						return true;
-					return false;
-				}
-			} catch (Exception e) {
-				return false;
-			}
-			return true;
+		public int nextInt() {
+			return Integer.parseInt(next());
 		}
 
 	}
