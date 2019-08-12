@@ -1,0 +1,34 @@
+{
+  "name" : "Split houses",
+  "testType" : "SINGLE",
+  "input" : {
+    "type" : "STANDARD",
+    "fileName" : "input.txt"
+  },
+  "output" : {
+    "type" : "STANDARD",
+    "fileName" : "output.txt"
+  },
+  "tests" : [ {
+    "input" : "5\nH...H",
+    "output" : "YES\nHBBBH",
+    "index" : 0,
+    "active" : true
+  } ],
+  "location" : "src/HackerEarth",
+  "vmArgs" : "-Xmx256M",
+  "mainClass" : "Main",
+  "taskClass" : "HackerEarth.SplitHouses",
+  "checkerClass" : "net.egork.chelper.checkers.TokenChecker",
+  "checkerParameters" : "",
+  "testClasses" : [ ],
+  "date" : "2019.08.04",
+  "contestName" : "",
+  "truncate" : true,
+  "inputClass" : "FastIO.InputReader",
+  "outputClass" : "java.io.PrintWriter",
+  "includeLocale" : false,
+  "failOnOverflow" : false,
+  "interactive" : false,
+  "interactor" : "net.egork.chelper.tester.Interactor"
+}

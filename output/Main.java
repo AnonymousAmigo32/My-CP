@@ -20,50 +20,63 @@ public class Main {
 		OutputStream outputStream = System.out;
 		InputReader in = new InputReader(inputStream);
 		PrintWriter out = new PrintWriter(outputStream);
-		TOANDFRO solver = new TOANDFRO();
-		try {
-			int testNumber = 1;
-			while (true)
-				solver.solve(testNumber++, in, out);
-		} catch (UnknownError e) {
-			out.close();
-		}
+		TaskB solver = new TaskB();
+		solver.solve(1, in, out);
+		out.close();
 	}
 
-	static class TOANDFRO {
+	static class TaskB {
 		public void solve(int testNumber, InputReader in, PrintWriter out) {
 			int size = in.nextInt();
-			if (size == 0) {
-				throw new UnknownError();
+			int[][] arr = new int[2 * size + 1][2 * size + 1];
+			for (int i = 0; i <= size; i++) {
+				arr[size][i] = arr[size][2 * size - i] = i;
 			}
-			StringBuilder string = new StringBuilder(in.next()).reverse();
-			StringBuilder[] matrix = new StringBuilder[string.length() / size];
-//        for (int i=0;i<size;i++)matrix[i] = new StringBuilder();
-			boolean evenRow = true;
-			int arrI = 0;
-			while (string.length() > 0) {
-				StringBuilder line = new StringBuilder(string.substring(string.length() - size));
-				string = string.delete(string.length() - size, string.length());
-				if (evenRow) {
-					matrix[arrI++] = line.reverse();
+			for (int i = 1; i <= size; i++) {
+				for (int j = 0; j < 2 * size + 1; j++) {
+					arr[size + i][j] = arr[size - i][j] = arr[size][j] - i;
+				}
+			}
+			for (int i = 0; i < 2 * size + 1; i++) {
+				if (arr[0][i] < 0) {
+					out.print("  ");
 				} else {
-					matrix[arrI++] = line;
-				}
-				evenRow = !evenRow;
-			}
-			for (int i = 0; i < size; i++) {
-				for (int j = 0; j < matrix.length; j++) {
-					out.print(matrix[j].charAt(i));
+					out.print("0\n");
+					break;
 				}
 			}
-			out.println();
+			for (int i = 1; i < 2 * size; i++) {
+				boolean positive = false;
+				for (int j = 0; j < 2 * size + 1; j++) {
+					if (arr[i][j] < 0) {
+						out.print("  ");
+					} else if (arr[i][j] == 0) {
+						if (positive) {
+							out.println(0);
+							break;
+						} else {
+							positive = true;
+							out.print("0 ");
+						}
+					} else {
+						out.print(arr[i][j] + " ");
+					}
+				}
+			}
+			for (int i = 0; i < 2 * size + 1; i++) {
+				if (arr[0][i] < 0) {
+					out.print("  ");
+				} else {
+					out.println("0");
+				}
+			}
 		}
 
 	}
 
 	static class InputReader {
-		public BufferedReader reader;
-		public StringTokenizer tokenizer;
+		private BufferedReader reader;
+		private StringTokenizer tokenizer;
 
 		public InputReader(InputStream stream) {
 			reader = new BufferedReader(new InputStreamReader(stream), 32768);

@@ -1,0 +1,34 @@
+{
+  "name" : "TOANDFRO",
+  "testType" : "MULTI_EOF",
+  "input" : {
+    "type" : "STANDARD",
+    "fileName" : "input.txt"
+  },
+  "output" : {
+    "type" : "STANDARD",
+    "fileName" : "output.txt"
+  },
+  "tests" : [ {
+    "input" : "5\ntoioynnkpheleaigshareconhtomesnlewx\n3\nttyohhieneesiaabss\n0\n",
+    "output" : "theresnoplacelikehomeonasnowynightx\nthisistheeasyoneab",
+    "index" : 0,
+    "active" : true
+  } ],
+  "location" : "src/SPOJ",
+  "vmArgs" : "-Xmx256m -Xss64m",
+  "mainClass" : "Main",
+  "taskClass" : "SPOJ.TOANDFRO",
+  "checkerClass" : "net.egork.chelper.checkers.TokenChecker",
+  "checkerParameters" : "",
+  "testClasses" : [ ],
+  "date" : "2019.07.29",
+  "contestName" : "",
+  "truncate" : true,
+  "inputClass" : "FastIO.InputReader",
+  "outputClass" : "java.io.PrintWriter",
+  "includeLocale" : false,
+  "failOnOverflow" : false,
+  "interactive" : false,
+  "interactor" : "net.egork.chelper.tester.Interactor"
+}

@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.StringTokenizer;
 
 public class InputReader {
-    public BufferedReader reader;
-    public StringTokenizer tokenizer;
+    private BufferedReader reader;
+    private StringTokenizer tokenizer;
 
     public InputReader(InputStream stream) {
         reader = new BufferedReader(new InputStreamReader(stream), 32768);

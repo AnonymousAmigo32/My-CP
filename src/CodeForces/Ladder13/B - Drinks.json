@@ -1,0 +1,39 @@
+{
+  "name" : "B - Drinks",
+  "testType" : "SINGLE",
+  "input" : {
+    "type" : "STANDARD",
+    "fileName" : "input.txt"
+  },
+  "output" : {
+    "type" : "STANDARD",
+    "fileName" : "output.txt"
+  },
+  "tests" : [ {
+    "input" : "3\n50 50 100\n",
+    "output" : "66.666666666667\n",
+    "index" : 0,
+    "active" : true
+  }, {
+    "input" : "4\n0 25 50 75\n",
+    "output" : "37.500000000000\n",
+    "index" : 1,
+    "active" : true
+  } ],
+  "location" : "src/CodeForces/Ladder13",
+  "vmArgs" : "-Xmx256M",
+  "mainClass" : "Main",
+  "taskClass" : "CodeForces.Ladder13.TaskB",
+  "checkerClass" : "net.egork.chelper.checkers.TokenChecker",
+  "checkerParameters" : "",
+  "testClasses" : [ ],
+  "date" : "2019.08.10",
+  "contestName" : "Codeforces Round #126 (Div. 2)",
+  "truncate" : true,
+  "inputClass" : "FastIO.InputReader",
+  "outputClass" : "java.io.PrintWriter",
+  "includeLocale" : false,
+  "failOnOverflow" : true,
+  "interactive" : false,
+  "interactor" : "net.egork.chelper.tester.Interactor"
+}

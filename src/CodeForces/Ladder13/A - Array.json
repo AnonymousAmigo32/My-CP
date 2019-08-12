@@ -1,0 +1,39 @@
+{
+  "name" : "A - Array",
+  "testType" : "SINGLE",
+  "input" : {
+    "type" : "STANDARD",
+    "fileName" : "input.txt"
+  },
+  "output" : {
+    "type" : "STANDARD",
+    "fileName" : "output.txt"
+  },
+  "tests" : [ {
+    "input" : "3\n-1 2 0\n",
+    "output" : "1 -1\n1 2\n1 0\n",
+    "index" : 0,
+    "active" : true
+  }, {
+    "input" : "4\n-1 -2 -3 0\n",
+    "output" : "1 -1\n2 -3 -2\n1 0\n",
+    "index" : 1,
+    "active" : true
+  } ],
+  "location" : "src/CodeForces/Ladder13",
+  "vmArgs" : "-Xmx256M",
+  "mainClass" : "Main",
+  "taskClass" : "CodeForces.Ladder13.TaskA",
+  "checkerClass" : "net.egork.chelper.checkers.TokenChecker",
+  "checkerParameters" : "",
+  "testClasses" : [ ],
+  "date" : "2019.08.11",
+  "contestName" : "Codeforces Round #181 (Div. 2)",
+  "truncate" : true,
+  "inputClass" : "FastIO.InputReader",
+  "outputClass" : "java.io.PrintWriter",
+  "includeLocale" : false,
+  "failOnOverflow" : true,
+  "interactive" : false,
+  "interactor" : "net.egork.chelper.tester.Interactor"
+}

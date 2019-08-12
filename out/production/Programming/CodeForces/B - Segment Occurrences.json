@@ -2,10 +2,12 @@
   "name" : "B - Segment Occurrences",
   "testType" : "SINGLE",
   "input" : {
-    "type" : "STANDARD"
+    "type" : "STANDARD",
+    "fileName" : "input.txt"
   },
   "output" : {
-    "type" : "STANDARD"
+    "type" : "STANDARD",
+    "fileName" : "output.txt"
   },
   "tests" : [ {
     "input" : "10 3 4\ncodeforces\nfor\n1 3\n3 10\n5 6\n5 7",
@@ -37,5 +39,6 @@
   "outputClass" : "java.io.PrintWriter",
   "includeLocale" : false,
   "failOnOverflow" : false,
-  "interactive" : false
+  "interactive" : false,
+  "interactor" : "net.egork.chelper.tester.Interactor"
 }
