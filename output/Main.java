@@ -2,10 +2,11 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.StringTokenizer;
+import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.FileInputStream;
+import java.util.Comparator;
+import java.util.ArrayList;
 import java.io.InputStream;
 
 /**
@@ -18,84 +19,145 @@ public class Main {
 	public static void main(String[] args) {
 		InputStream inputStream = System.in;
 		OutputStream outputStream = System.out;
-		InputReader in = new InputReader(inputStream);
+		Reader in = new Reader(inputStream);
 		PrintWriter out = new PrintWriter(outputStream);
-		TaskB solver = new TaskB();
+		TaskF2 solver = new TaskF2();
 		solver.solve(1, in, out);
 		out.close();
 	}
 
-	static class TaskB {
-		public void solve(int testNumber, InputReader in, PrintWriter out) {
+	static class TaskF2 {
+		public void solve(int testNumber, Reader in, PrintWriter out) {
 			int size = in.nextInt();
-			int[][] arr = new int[2 * size + 1][2 * size + 1];
-			for (int i = 0; i <= size; i++) {
-				arr[size][i] = arr[size][2 * size - i] = i;
-			}
-			for (int i = 1; i <= size; i++) {
-				for (int j = 0; j < 2 * size + 1; j++) {
-					arr[size + i][j] = arr[size - i][j] = arr[size][j] - i;
+			int r = in.nextInt();
+			ArrayList<TaskF1.Pair> positives = new ArrayList<>();
+			ArrayList<TaskF1.Pair> zeros = new ArrayList<>();
+			ArrayList<TaskF1.Pair> negatives = new ArrayList<>();
+			int count = 0;
+			for (int i = 0; i < size; i++) {
+				int req = in.nextInt();
+				int add = in.nextInt();
+				if (add == 0) {
+					zeros.add(new TaskF1.Pair(req, add));
+					continue;
+				}
+				if (add < 0) {
+					negatives.add(new TaskF1.Pair(req, add));
+					continue;
+				}
+				if (add > 0) {
+					positives.add(new TaskF1.Pair(req, add));
 				}
 			}
-			for (int i = 0; i < 2 * size + 1; i++) {
-				if (arr[0][i] < 0) {
-					out.print("  ");
-				} else {
-					out.print("0\n");
-					break;
+			positives.sort(new Comparator<TaskF1.Pair>() {
+
+				public int compare(TaskF1.Pair o1, TaskF1.Pair o2) {
+					return o1.req - o2.req;
+				}
+			});
+			negatives.sort(new Comparator<TaskF1.Pair>() {
+
+				public int compare(TaskF1.Pair o1, TaskF1.Pair o2) {
+					return o2.add + o2.req - o1.add - o1.req;
+				}
+			});
+			for (TaskF1.Pair pair : positives) {
+				if (r >= pair.req) {
+					r += pair.add;
+					count++;
 				}
 			}
-			for (int i = 1; i < 2 * size; i++) {
-				boolean positive = false;
-				for (int j = 0; j < 2 * size + 1; j++) {
-					if (arr[i][j] < 0) {
-						out.print("  ");
-					} else if (arr[i][j] == 0) {
-						if (positive) {
-							out.println(0);
-							break;
-						} else {
-							positive = true;
-							out.print("0 ");
-						}
-					} else {
-						out.print(arr[i][j] + " ");
+			for (TaskF1.Pair pair : zeros) {
+				if (r >= pair.req) {
+					count++;
+				}
+			}
+			for (TaskF1.Pair pair : negatives) {
+				if (r >= pair.req) {
+					if (r + pair.add < 0) {
+						continue;
 					}
+					r += pair.add;
+					count++;
 				}
 			}
-			for (int i = 0; i < 2 * size + 1; i++) {
-				if (arr[0][i] < 0) {
-					out.print("  ");
-				} else {
-					out.println("0");
-				}
-			}
+			out.println(count);
 		}
 
 	}
 
-	static class InputReader {
-		private BufferedReader reader;
-		private StringTokenizer tokenizer;
+	static class TaskF1 {
+		static class Pair {
+			int req;
+			int add;
 
-		public InputReader(InputStream stream) {
-			reader = new BufferedReader(new InputStreamReader(stream), 32768);
-			tokenizer = null;
+			Pair(int req, int add) {
+				this.add = add;
+				this.req = req;
+			}
+
+			public String toString() {
+				return req + " " + add;
+			}
+
 		}
 
-		public String next() {
-			while (tokenizer == null || !tokenizer.hasMoreTokens()) {
-				try {
-					tokenizer = new StringTokenizer(reader.readLine());
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
+	}
+
+	static class Reader {
+		final private int BUFFER_SIZE = 1 << 16;
+		private DataInputStream din;
+		private byte[] buffer;
+		private int bufferPointer;
+		private int bytesRead;
+
+		public Reader(InputStream inputStream) {
+			din = new DataInputStream(inputStream);
+			buffer = new byte[BUFFER_SIZE];
+			bufferPointer = bytesRead = 0;
+		}
+
+		public Reader(String file_name) {
+			try {
+				din = new DataInputStream(new FileInputStream(file_name));
+				buffer = new byte[BUFFER_SIZE];
+				bufferPointer = bytesRead = 0;
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			return tokenizer.nextToken();
 		}
 
 		public int nextInt() {
-			return Integer.parseInt(next());
+			int ret = 0;
+			byte c = read();
+			while (c <= ' ')
+				c = read();
+			boolean neg = (c == '-');
+			if (neg)
+				c = read();
+			do {
+				ret = ret * 10 + c - '0';
+			} while ((c = read()) >= '0' && c <= '9');
+
+			if (neg)
+				return -ret;
+			return ret;
+		}
+
+		private void fillBuffer() {
+			try {
+				bytesRead = din.read(buffer, bufferPointer = 0, BUFFER_SIZE);
+				if (bytesRead == -1)
+					buffer[0] = -1;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		private byte read() {
+			if (bufferPointer == bytesRead)
+				fillBuffer();
+			return buffer[bufferPointer++];
 		}
 
 	}

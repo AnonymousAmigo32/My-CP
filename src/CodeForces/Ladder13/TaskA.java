@@ -1,34 +1,51 @@
 package CodeForces.Ladder13;
 
 import FastIO.InputReader;
-
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 public class TaskA {
-	public void solve(int testNumber, InputReader in, PrintWriter out) {
-		int maxa = in.nextInt();
-		int maxb = in.nextInt();
-		int mina = in.nextInt();
-		int minb = in.nextInt();
-		ArrayList<Pair> li = new ArrayList<>();
-		for (int i = mina; i <= maxa; i++) {
-			for (int j = minb; j <= maxb && j < i; j++) {
-				li.add(new Pair(i,j));
-			}
-		}
-		out.println(li.size());
-		for (Pair pair : li) {
-			out.println(pair.a + " " + pair.b);
-		}
-	}
+    public void solve(int testNumber, InputReader in, PrintWriter out) {
+        int size = in.nextInt();
+        int arr[] = new int[size];
+        int pos = 0;
+        for (int i = 0;i<size;i++) {
+            arr[i]= in.nextInt();
+            if (arr[i] == 1) pos = i;
+        }
+        if (clockwise(arr, pos) || ac(arr, pos)) {
+            out.println("YES");
+        } else {
+            out.println("NO");
+        }
+    }
 
-	class Pair {
-		int a, b;
+    private boolean ac(int[] arr, int pos) {
+        int curr = 1;
+        for (int i = pos; i>=0; i-- ){
+            if (arr[i] != curr++) {
+                return false;
+            }
+        }
+        for (int i = arr.length-1; i>pos; i-- ){
+            if (arr[i] != curr++) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-		Pair(int a, int b) {
-			this.a = a;
-			this.b = b;
-		}
-	}
+    private boolean clockwise(int[] arr, int pos) {
+        int curr = 1;
+        for (int i=pos;i<arr.length;i++) {
+            if (arr[i]!=curr++) {
+                return false;
+            }
+        }
+        for (int i=0;i<pos;i++) {
+            if (arr[i]!=curr++) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
