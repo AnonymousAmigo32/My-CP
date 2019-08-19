@@ -1,11 +1,11 @@
 package AlgorithmsImpl;
 
 /**
- * @author kishore-8626
+ * @author kishore
  */
 public class LinearSearch {
 	/**
-	 * Linearly searches for the element in array O(n).
+	 * Linearly searches for the element in array. O(n);
 	 *
 	 * @param array   the array from which the index of element to be found.
 	 * @param element the element to find index of.

@@ -1,11 +1,11 @@
 package AlgorithmsImpl;
 
 /**
- * @author kishore-8626
+ * @author kishore
  */
 public class CPUtility {
 	/**
-	 * Swaps two elements in an array.
+	 * Swaps two elements in an array. O(1);
 	 *
 	 * @param index1 index of an element.
 	 * @param index2 index of another element.

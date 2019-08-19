@@ -1,11 +1,11 @@
 package AlgorithmsImpl;
 
 /**
- * @author kishore-8626
+ * @author kishore
  */
 public class InsertionSort {
 	/**
-	 * Sorts elements in array in Ascending fashion.
+	 * Sorts elements in array in Ascending fashion. O(n^2);
 	 *
 	 * @param array array to be sorted.
 	 */
@@ -20,7 +20,7 @@ public class InsertionSort {
 	}
 
 	/**
-	 * Sorts elements in array in Descending fashion.
+	 * Sorts elements in array in Descending fashion. O(n^2);
 	 *
 	 * @param array array to be sorted.
 	 */
