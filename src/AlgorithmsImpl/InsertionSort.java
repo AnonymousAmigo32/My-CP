@@ -1,5 +1,7 @@
 package AlgorithmsImpl;
 
+import static AlgorithmsImpl.CPUtility.swap;
+
 /**
  * @author kishore
  */
@@ -13,7 +15,7 @@ public class InsertionSort {
 		for (int i = 1; i < array.length; i++) {
 			int j = i - 1;
 			while (j >= 0 && array[j] > array[j + 1]) {
-				CPUtility.swap(j, j + 1, array);
+				swap(j, j + 1, array);
 				j--;
 			}
 		}
@@ -28,7 +30,7 @@ public class InsertionSort {
 		for (int i = array.length - 2; i >= 0; i--) {
 			int j = i + 1;
 			while (j < array.length && array[j] > array[j - 1]) {
-				CPUtility.swap(j, j - 1, array);
+				swap(j, j - 1, array);
 				j++;
 			}
 		}

@@ -21,20 +21,20 @@ public class CPUtility {
 		int size = numberInBinaryRep1.length;
 		byte[] result = new byte[size + 1];
 		byte carry = 0;
-		for (int i=size-1; i>=0; i--) {
-			byte current = (byte)(numberInBinaryRep1[i] + numberInBinaryRep2[i] + carry);
+		for (int i = size - 1; i >= 0; i--) {
+			byte current = (byte) (numberInBinaryRep1[i] + numberInBinaryRep2[i] + carry);
 			carry = 0;
 			switch (current) {
-				case  2 :
+				case 2:
 					current = 0;
 					carry = 1;
 					break;
-				case 3 :
+				case 3:
 					current = 1;
 					carry = 1;
 					break;
 			}
-			result[i+1] = current;
+			result[i + 1] = current;
 		}
 		if (carry == 1) {
 			result[0] = 1;

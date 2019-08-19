@@ -4,95 +4,135 @@ package AlgorithmsImpl;
  * @author kishore
  */
 public class MergeSort {
-	public static void sortAscending(int[] arr) {
-		sortAscending(arr, 0, arr.length - 1);
+	/**
+	 * Sorts an entire array in Ascending fashion. O(n * log(n));
+	 *
+	 * @param array array to be sorted.
+	 */
+	public static void sortAscending(int[] array) {
+		sortAscending(array, 0, array.length - 1);
 	}
 
-	public static void sortAscending(int[] arr, int left, int right) {
-		if (left < right) {
-			int mid = (left + right) / 2;
-			sortAscending(arr, left, mid);
-			sortAscending(arr, mid + 1, right);
-			mergeAscending(arr, left, mid, right);
+	/**
+	 * Sorts given range of an array in Ascending fashion. O(n * log(n));
+	 *
+	 * @param array          array to be sorted.
+	 * @param leftMostIndex  leftMostIndex of Range to be sorted.
+	 * @param rightMostIndex rightMostIndex of Range to be sorted.
+	 */
+	public static void sortAscending(int[] array, int leftMostIndex, int rightMostIndex) {
+		if (leftMostIndex < rightMostIndex) {
+			int middleIndex = (leftMostIndex + rightMostIndex) / 2;
+			sortAscending(array, leftMostIndex, middleIndex);
+			sortAscending(array, middleIndex + 1, rightMostIndex);
+			mergeAscending(array, leftMostIndex, middleIndex, rightMostIndex);
 		}
 	}
 
-	private static void mergeAscending(int[] arr, int left, int mid, int right) {
-		int leftArraySize = mid - left + 1;
-		int rightArraySize = right - mid;
+	/**
+	 * Merges the sub-arrays in ascending order.
+	 *
+	 * @param array          array to be sorted.
+	 * @param leftMostIndex  leftMostIndex of sub-array range.
+	 * @param middleIndex    middleIndex of sub-array range.
+	 * @param rightMostIndex rightMostIndex of sub-array range.
+	 */
+	private static void mergeAscending(int[] array, int leftMostIndex, int middleIndex, int rightMostIndex) {
+		int leftArraySize = middleIndex - leftMostIndex + 1;
+		int rightArraySize = rightMostIndex - middleIndex;
 		int[] leftArray = new int[leftArraySize];
 		int[] rightArray = new int[rightArraySize];
 
-		for (int i = left; i <= mid; i++) {
-			leftArray[i - left] = arr[i];
+		for (int i = leftMostIndex; i <= middleIndex; i++) {
+			leftArray[i - leftMostIndex] = array[i];
 		}
-		for (int i = mid + 1; i <= right; i++) {
-			rightArray[i - mid - 1] = arr[i];
+		for (int i = middleIndex + 1; i <= rightMostIndex; i++) {
+			rightArray[i - middleIndex - 1] = array[i];
 		}
 
 		int indexOfLeftArray = 0;
 		int indexOfRightArray = 0;
-		int indexInMainArray = left;
+		int indexInMainArray = leftMostIndex;
 
 		while (indexOfLeftArray < leftArraySize && indexOfRightArray < rightArraySize) {
 			if (leftArray[indexOfLeftArray] < rightArray[indexOfRightArray]) {
-				arr[indexInMainArray++] = leftArray[indexOfLeftArray++];
+				array[indexInMainArray++] = leftArray[indexOfLeftArray++];
 			} else {
-				arr[indexInMainArray++] = rightArray[indexOfRightArray++];
+				array[indexInMainArray++] = rightArray[indexOfRightArray++];
 			}
 		}
 
 		while (indexOfLeftArray < leftArraySize) {
-			arr[indexInMainArray++] = leftArray[indexOfLeftArray++];
+			array[indexInMainArray++] = leftArray[indexOfLeftArray++];
 		}
 		while (indexOfRightArray < rightArraySize) {
-			arr[indexInMainArray++] = rightArray[indexOfRightArray++];
+			array[indexInMainArray++] = rightArray[indexOfRightArray++];
 		}
 	}
 
-	public static void sortDescending(int[] arr) {
-		sortDescending(arr, 0, arr.length - 1);
+	/**
+	 * Sorts an entire array in Descending fashion. O(n * log(n));
+	 *
+	 * @param array array to be sorted.
+	 */
+	public static void sortDescending(int[] array) {
+		sortDescending(array, 0, array.length - 1);
 	}
 
-	public static void sortDescending(int[] arr, int left, int right) {
-		if (left < right) {
-			int mid = (left + right) / 2;
-			sortDescending(arr, left, mid);
-			sortDescending(arr, mid + 1, right);
-			mergeDescending(arr, left, mid, right);
+	/**
+	 * Sorts given range of an array in Descending fashion. O(n * log(n));
+	 *
+	 * @param array          array to be sorted.
+	 * @param leftMostIndex  leftMostIndex of Range to be sorted.
+	 * @param rightMostIndex rightMostIndex of Range to be sorted.
+	 */
+	public static void sortDescending(int[] array, int leftMostIndex, int rightMostIndex) {
+		if (leftMostIndex < rightMostIndex) {
+			int middleIndex = (leftMostIndex + rightMostIndex) / 2;
+			sortDescending(array, leftMostIndex, middleIndex);
+			sortDescending(array, middleIndex + 1, rightMostIndex);
+			mergeDescending(array, leftMostIndex, middleIndex, rightMostIndex);
 		}
 	}
 
-	private static void mergeDescending(int[] arr, int left, int mid, int right) {
-		int leftArraySize = mid - left + 1;
-		int rightArraySize = right - mid;
+	/**
+	 * Merges the sub-arrays in descending order.
+	 *
+	 * @param array          array to be sorted.
+	 * @param leftMostIndex  leftMostIndex of sub-array range.
+	 * @param middleIndex    middleIndex of sub-array range.
+	 * @param rightMostIndex rightMostIndex of sub-array range.
+	 */
+	private static void mergeDescending(int[] array, int leftMostIndex, int middleIndex, int rightMostIndex) {
+		int leftArraySize = middleIndex - leftMostIndex + 1;
+		int rightArraySize = rightMostIndex - middleIndex;
 		int[] leftArray = new int[leftArraySize];
 		int[] rightArray = new int[rightArraySize];
 
-		for (int i = left; i <= mid; i++) {
-			leftArray[i - left] = arr[i];
+		for (int i = leftMostIndex; i <= middleIndex; i++) {
+			leftArray[i - leftMostIndex] = array[i];
 		}
-		for (int i = mid + 1; i <= right; i++) {
-			rightArray[i - mid - 1] = arr[i];
+		for (int i = middleIndex + 1; i <= rightMostIndex; i++) {
+			rightArray[i - middleIndex - 1] = array[i];
 		}
 
 		int indexOfLeftArray = 0;
 		int indexOfRightArray = 0;
-		int indexInMainArray = left;
+		int indexInMainArray = leftMostIndex;
 
 		while (indexOfLeftArray < leftArraySize && indexOfRightArray < rightArraySize) {
 			if (leftArray[indexOfLeftArray] > rightArray[indexOfRightArray]) {
-				arr[indexInMainArray++] = leftArray[indexOfLeftArray++];
+				array[indexInMainArray++] = leftArray[indexOfLeftArray++];
 			} else {
-				arr[indexInMainArray++] = rightArray[indexOfRightArray++];
+				array[indexInMainArray++] = rightArray[indexOfRightArray++];
 			}
 		}
 
 		while (indexOfLeftArray < leftArraySize) {
-			arr[indexInMainArray++] = leftArray[indexOfLeftArray++];
+			array[indexInMainArray++] = leftArray[indexOfLeftArray++];
 		}
 		while (indexOfRightArray < rightArraySize) {
-			arr[indexInMainArray++] = rightArray[indexOfRightArray++];
+			array[indexInMainArray++] = rightArray[indexOfRightArray++];
 		}
 	}
 

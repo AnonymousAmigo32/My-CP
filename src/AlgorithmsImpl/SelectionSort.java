@@ -26,6 +26,11 @@ public class SelectionSort {
 		}
 	}
 
+	/**
+	 * Sorts elements in array in Descending fashion. O(n^2);
+	 *
+	 * @param array array to be sorted.
+	 */
 	public static void sortDescending(int[] array) {
 		for (int i = 0; i < array.length - 1; i++) {
 			int j = i;
