@@ -1,5 +1,7 @@
 package AlgorithmsImpl;
 
+import java.util.ArrayList;
+
 /**
  * @author kishore
  */
@@ -17,6 +19,37 @@ public class CPUtility {
 		array[index2] = temp;
 	}
 
+	/**
+	 * finds gcd of two integers
+	 *
+	 * @param a first number
+	 * @param b second number
+	 * @return GCD of the two integers
+	 */
+	public static int gcd(int a, int b) {
+		if (b == 0)
+			return a;
+		return gcd(b, a % b);
+	}
+
+	/**
+	 * gives lcm of two numbers
+	 *
+	 * @param a an integer
+	 * @param b an integer
+	 * @return lcm of a and b
+	 */
+	public static int lcm(int a, int b) {
+		return (a * b) / gcd(a, b);
+	}
+
+	/**
+	 * returns sum of two binary numbers in byte array
+	 *
+	 * @param numberInBinaryRep1 first array of length n
+	 * @param numberInBinaryRep2 second array of length n
+	 * @return resultant sum as byte array with n+1 size
+	 */
 	public static byte[] add(byte[] numberInBinaryRep1, byte[] numberInBinaryRep2) {
 		int size = numberInBinaryRep1.length;
 		byte[] result = new byte[size + 1];
@@ -42,10 +75,73 @@ public class CPUtility {
 		return result;
 	}
 
+	/**
+	 * returns maxSubArraySum in given array
+	 *
+	 * @param array The array containing values
+	 * @param left  leftMost index of array
+	 * @param right rightMost index of array
+	 * @return sum of longest continues subArray
+	 */
+	public static long maxSubArraySum(int array[], int left, int right) {
+		if (left == right) {
+			return array[left];
+		}
+		int middle = (left + right) / 2;
+		return Math.max(Math.max(maxSubArraySum(array, left, middle), maxSubArraySum(array, middle + 1, right)),
+				maxCrossingSubArraySum(array, left, middle, right));
+	}
+
+	private static long maxCrossingSubArraySum(int[] array, int left, int middle, int right) {
+		long sum = 0;
+		long leftSum = Long.MIN_VALUE;
+		for (int i = middle; i >= left; i--) {
+			sum += array[i];
+			if (sum > leftSum) {
+				leftSum = sum;
+			}
+		}
+		sum = 0;
+		long rightSum = Long.MIN_VALUE;
+		for (int i = middle; i <= right; i++) {
+			sum += array[i];
+			if (sum > rightSum) {
+				rightSum = sum;
+			}
+		}
+		return leftSum + rightSum;
+	}
+
+	public static ArrayList<String> permutations(String s) {
+		ArrayList<String> result = new ArrayList<>();
+		permutations("", s, result);
+		return result;
+	}
+
+	private static void permutations(String prefix, String suffix, ArrayList<String> result) {
+		if (suffix.length() == 0) {
+			result.add(prefix);
+		} else {
+			for (int i = 0; i < suffix.length(); i++) {
+				permutations(prefix + suffix.charAt(i), suffix.substring(0, i) + suffix.substring(i + 1), result);
+			}
+		}
+	}
+
+	public static ArrayList<String> combinations(String s) {
+		ArrayList<String> result = new ArrayList<>();
+		combinations("", s, result);
+		return result;
+	}
+
+	private static void combinations(String prefix, String suffix, ArrayList<String> result) {
+		result.add(prefix);
+		for (int i=0; i<suffix.length(); i++) {
+			combinations(prefix + suffix.charAt(i), suffix.substring(0, i) + suffix.substring(i+1), result);
+		}
+	}
+
 	public static void main(String[] args) {
-		byte[] arr1 = new byte[]{1, 1, 0};
-		byte[] arr2 = new byte[]{1, 1, 0};
-		byte[] result = add(arr1, arr2);
-		for (byte b : result) System.out.print(b);
+		System.out.println(combinations("abc"));
 	}
 }

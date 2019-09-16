@@ -1,2 +1,2 @@
-70 src/CodeForces/Ladder13/F2 - Complete the Projects (hard version).json
+40 src/CodeForces/Ladder13/A - Puzzles.json
 0
